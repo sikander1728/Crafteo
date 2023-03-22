@@ -13,7 +13,10 @@ const signup = async (req, res, next)=>{
     try {
         existingUser = await User.findOne({email: email});
     } catch (error) {
-        console.log(error)
+        res.status(500).json({
+            Success: false,
+            message: error.message
+        })
     }
     if(existingUser){
         return res.status(403).json({message: "User Already Exist"})
@@ -33,7 +36,10 @@ const signup = async (req, res, next)=>{
     try{
         await user.save()
     }catch(err){
-        console.log(err)
+        return res.status(500).json({
+            Success: false,
+            message: err.message
+        })
     }
     return res.status(201).json({message: user}) 
 }
@@ -46,7 +52,10 @@ const signin = async (req, res, next) =>{
     try {
         existingUser = await User.findOne({email: email})
     } catch (err) {
-        return new Error(err)
+        return res.status(500).json({
+            Success: false,
+            message: err.message
+        })
     }
     if(!existingUser){
         return res.status(400).json({

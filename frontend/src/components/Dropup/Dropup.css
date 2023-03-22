@@ -1,0 +1,11 @@
+.btn{
+    padding-block-start: 0px;
+    letter-spacing: 1px;
+}
+.btn:focus{
+    border: none;
+}
+.up{
+    background-color: rgba(77, 181, 255, 0.3);
+    letter-spacing: 2px;
+}

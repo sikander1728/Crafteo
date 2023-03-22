@@ -1,0 +1,53 @@
+.navbar{
+    background-color: #1f1f38;
+    inline-size: 19%;
+    block-size: 100vh;
+    position: sticky;
+    inset-block-start: 0px;
+    background-image: url(../../images/bg-texture.png);
+    font-family: 'Montserrat';
+}
+.brand_name{
+    inset-block-start: 40px;
+}
+.brand_name img{
+    color: white;
+    inline-size: 70%;
+    padding-inline-start: 20px;
+}
+.menu{
+    inset-block-start: 150px;
+    inline-size: 100%;
+}
+.menu ul li {
+    color: #fff;
+    line-height: 3rem;
+    margin-inline-start: 10px;
+    margin-inline-end: 20px;
+    padding-inline-start: 10px;
+}
+
+.menu ul li:hover{
+    background-color: rgba(77, 181, 255, 0.3);
+    border-radius: 50px;
+}
+.menu-icon{
+    font-size: 30px;
+}
+.menu-list{
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding-inline-start: 10px;
+}
+.profile{
+    position: absolute;
+    inset-block-end: 40px;
+}
+.profile-name{
+    color: #fff;
+    padding-inline-start: 10px;
+    font-size: 18px;
+}
+.profile-dropdown{
+    display: flex;
+}
