@@ -1,13 +1,13 @@
 import '../Navbar/Navbar.css'
 import { AiFillHome, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai'
 import { HiShoppingCart } from 'react-icons/hi'
+import { BiMessageSquareAdd } from 'react-icons/bi'
 import Avatar from '../Avatar/Avatar'
-import Dropup from '../Dropup/Dropup'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <div className='navbar'>
+    <div className={'desktop-navbar'}>
       <div className="brand_name position-absolute">
         <img src="/logo.png" alt="crafteo_logo" />
       </div>
@@ -19,24 +19,40 @@ const Navbar = () => {
               <span className='menu-list'>Home</span>
             </Link>
           </li>
-          <li>
-            <AiOutlineSearch className='menu-icon mt-auto mb-auto' />
-            <span className='menu-list'>Search</span>
+          <li className='d-flex'>
+            <Link to='/' className='text-light text-decoration-none'>
+              <BiMessageSquareAdd className='menu-icon mt-auto mb-auto' />
+              <span className='menu-list'>Create</span>
+            </Link>
           </li>
           <li>
-            <HiShoppingCart className='menu-icon mt-auto mb-auto' />
-            <span className='menu-list'>Shop</span>
+            <Link to='/' className='text-light text-decoration-none'>
+              <AiOutlineSearch className='menu-icon mt-auto mb-auto' />
+              <span className='menu-list'>Search</span>
+            </Link>
           </li>
           <li>
-            <AiOutlineHeart className='menu-icon mt-auto mb-auto' />
-            <span className='menu-list'>Notification</span>
+            <Link to='/' className='text-light text-decoration-none'>
+              <HiShoppingCart className='menu-icon mt-auto mb-auto' />
+              <span className='menu-list'>Shop</span>
+            </Link>
+          </li>
+          <li>
+            <Link to='/' className='text-light text-decoration-none'>
+              <AiOutlineHeart className='menu-icon mt-auto mb-auto' />
+              <span className='menu-list'>Notification</span>
+            </Link>
           </li>
         </ul>
       </div>
       <div className='profile'>
         <div className='profile-dropdown'>
-          <Avatar />
-          <Dropup />
+          <Link to='/' className='text-light text-decoration-none d-flex'>
+            <Avatar />
+            <div className='profile-heading menu-list'>
+              <h5 className='m-auto'>Profile</h5>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

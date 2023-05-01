@@ -9,7 +9,9 @@ const Avatar = () => {
         backgroundPosition: 'center',
         backgroundSize: 'cover'
     }} >
+      
     </div>
+
   )
 }
 

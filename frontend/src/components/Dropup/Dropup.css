@@ -9,3 +9,8 @@
     background-color: rgba(77, 181, 255, 0.3);
     letter-spacing: 2px;
 }
+@media only screen and (max-width : 1040px) {
+    .dropup{
+        display: none;
+    }
+}
