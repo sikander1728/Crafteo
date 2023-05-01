@@ -1,0 +1,6 @@
+.avatar{
+    inline-size: 30px;
+    block-size: 30px;
+    border-radius: 50px;
+    margin-inline-start: 10px;
+}

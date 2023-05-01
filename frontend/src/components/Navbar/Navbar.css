@@ -1,0 +1,106 @@
+.desktop-navbar {
+    background-color: #1f1f38;
+    inline-size: 19%;
+    block-size: 100%;
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    background-image: url(../../images/bg-texture.png);
+    font-family: 'Montserrat';
+    transition: all 0.3s ease;
+}
+
+.brand_name {
+    inset-block-start: 40px;
+}
+
+.brand_name img {
+    color: white;
+    inline-size: 70%;
+    padding-inline-start: 20px;
+}
+
+.menu {
+    inset-block-start: 150px;
+    inline-size: 100%;
+}
+
+.menu ul li {
+    color: #fff;
+    line-height: 3rem;
+    margin-inline-start: 10px;
+    margin-inline-end: 20px;
+    padding-inline-start: 10px;
+}
+
+.menu ul li:hover {
+    background-color: rgba(77, 181, 255, 0.3);
+    border-radius: 50px;
+}
+
+.menu-icon {
+    font-size: 30px;
+}
+
+.menu-list {
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding-inline-start: 10px;
+}
+
+.profile {
+    position: absolute;
+    inset-block-end: 40px;
+    inline-size: 100%;
+}
+
+.profile-name {
+    color: #fff;
+    padding-inline-start: 10px;
+    font-size: 18px;
+}
+
+.profile-dropdown {
+    display: flex;
+    align-items: center;
+    block-size: 3rem;
+    margin-inline-start: 10px;
+    margin-inline-end: 20px;
+}
+
+.profile-heading {
+    margin-inline-end: 30px;
+}
+
+.profile-dropdown h5 {
+    color: #fff;
+    line-height: 2rem;
+    letter-spacing: 1px;
+}
+
+.profile-dropdown:hover {
+    background-color: rgba(77, 181, 255, 0.3);
+    border-radius: 50px;
+}
+
+@media only screen and (max-width : 1040px) {
+    .menu-list {
+        display: none;
+    }
+
+    .menu ul li:hover, .profile-dropdown:hover{
+        background-color: #1f1f38;;
+        border-radius: 0px;
+    }
+    .profile-dropdown{
+        margin-inline-start: 0px;
+    }
+    .desktop-navbar {
+        inline-size: 70px;
+    }
+}
+@media only screen and (max-width : 700px) {
+    .desktop-navbar{
+        display: none;
+    }
+}
