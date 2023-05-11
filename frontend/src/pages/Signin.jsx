@@ -8,7 +8,6 @@ import { SigninUser } from '../Actions/User'
 import { useEffect } from 'react'
 import { errorToast } from '../Toasts/error'
 import { ToastContainer } from 'react-toastify'
-import { successToast } from '../Toasts/success'
 
 const SignIn = () => {
   const initialValues = { email: "", password: "" };
@@ -17,7 +16,7 @@ const SignIn = () => {
   const [formErrors, setFormErrors] = useState({})
   const iconref = useRef({})
   const dispatch = useDispatch()
-  const {iserror, message} = useSelector((state) => state.user)
+  const {iserror} = useSelector((state) => state.user)
 
   useEffect(() => {
     if (iserror === 'User Not Found' || iserror === 'Invalid Credentials') {
@@ -26,15 +25,7 @@ const SignIn = () => {
           dispatch({
               type: "ClearError"
           })
-      }, 3000);
-    }
-    if(message === 'Signin Successfully'){
-      successToast(message)
-    //   setTimeout(() => {
-    //     dispatch({
-    //         type: "ClearSuccess"
-    //     })
-    // }, 3000);
+      }, 1000);
     }
   })
 
