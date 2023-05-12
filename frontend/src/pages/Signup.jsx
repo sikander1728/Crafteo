@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useEffect } from 'react'
 import { errorToast } from '../Toasts/error'
+import { successToast } from '../Toasts/success'
+
 const Signup = () => {
     const initialValues = { email: "", name: "", username: "", password: "" };
     const [formValues, setFormValues] = useState(initialValues);
@@ -29,10 +31,16 @@ const Signup = () => {
                 dispatch({
                     type: "ClearError"
                 })
-            }, 1000);
+            }, 3000);
         }
         if (user === 'User Created Successfully') {
-            navigate('/')
+            successToast(user)
+            setTimeout(() => {
+                // dispatch({
+                //     type: "ClearSuccess"
+                // })
+                navigate('/')
+            }, 1000);
         }
     })
 
