@@ -103,7 +103,7 @@ const signin = async (req, res, next) => {
     const token = jwt.sign(
         { id: existingUser._id },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: "1d"}
+        { expiresIn: "1hr" }
     )
 
     if(req.cookies[`${existingUser._id}`]){
@@ -116,7 +116,7 @@ const signin = async (req, res, next) => {
 
     res.cookie(String(existingUser._id), token, {
         path: '/',
-        expiresIn: "1d",
+        expires: new Date(Date.now() + 1000 * 24 * 12 * 30),
         httpOnly: true,
         sameSite: "lax"
     })
@@ -134,7 +134,7 @@ const getUser = async (req, res, next) =>{
     const userId = req.id
     let user;
     try {
-        user = await User.findById(userId, "-password");
+        user = await User.findById(userId, "-password")
     } catch (error) {
         return new Error(error)
     }
