@@ -1,7 +1,6 @@
 import axios from "axios"
 axios.defaults.withCredentials = true
 
-
 //signin request 
 export const SigninUser = (formValues) => async (dispatch) => {
     try {
@@ -80,7 +79,7 @@ export const LoadUser = () => async (dispatch) => {
             type: "LoadUserRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/users", {
+        const { data } = await axios.get( process.env.REACT_APP_REQUEST_URL+ "/api/users", {
             withCredentials: true,
         })
 
