@@ -1,8 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
-    message: "",
-    resetmessage: "",
+    iserror: "",
 }
 
 export const userReducer = createReducer(initialState, {
@@ -18,25 +17,30 @@ export const userReducer = createReducer(initialState, {
     },
     SigninFailure: (state,action) =>{
         state.loading = false;
-        state.iserror = action.payload
+        state.iserror += action.payload
         state.isauthenticated = false
     },
 
     SignupRequest: (state ) =>{
         state.loading = true;
+        state.isauthenticated = false
     },
     SignupSuccess: (state,action) =>{
         state.loading = false;
         state.user = action.payload;
+        state.isauthenticated = true
     },
     SignupFailure: (state,action) =>{
         state.loading = false;
-        state.iserror = action.payload;
+        state.iserror += action.payload
+        state.isauthenticated = false
     },
-    
     ClearError: (state) =>{
         state.iserror = ""
     },
+    // ClearSuccess: (state) => {
+    //     state.user = {}
+    // },
 
     LoadUserRequest: (state) => {
         state.loading = true
@@ -53,38 +57,14 @@ export const userReducer = createReducer(initialState, {
         state.isauthenticated = false
     },
 
-    forgotLoad: (state) => {
+    ResetLoad: (state) => {
         state.loading = true
     },
-    forgotSuccess: (state, action) => {
+    ResetSuccess: (state, action) => {
         state.loading = false;
-        state.message += action.payload;
+        state.resetPassword = action.payload;
     },
-    forgotFailure: (state,action) => {
-        state.loading = false;
-        state.iserror = action.payload
-    },
-
-    verifyLinkRequest: (state) => {
-        state.loading = true
-    },
-    verifyLinkSuccess: (state, action) => {
-        state.loading = false;
-        state.message += action.payload;
-    },
-    veriyLinkFailure: (state,action) => {
-        state.loading = false;
-        state.linkerror = action.payload
-    },
-
-    resetPasswordRequest: (state) => {
-        state.loading = true
-    },
-    resetPasswordSuccess: (state, action) => {
-        state.loading = false;
-        state.resetmessage += action.payload;
-    },
-    resetPasswordFailure: (state,action) => {
+    ResetFailure: (state,action) => {
         state.loading = false;
         state.iserror = action.payload
     }

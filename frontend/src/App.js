@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
-import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword"
 import SignIn from './pages/Signin';
 import Signup from "./pages/Signup";
 import NotFound from "./components/NotFound/NotFound";
@@ -25,8 +25,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={isauthenticated ? <Home /> : <SignIn />} />
         <Route exact path="/register" element={<Signup />} />
-        <Route exact path="/accounts/password/reset" element={<ForgotPassword />} />
-        <Route exact path="/resetPassword/:id/:token" element={<ResetPassword />} />
+        <Route exact path="/accounts/password/reset" element={<ResetPassword />} />
+        <Route exact path="/frogotPassword/:id/:token" element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
         <Route exact path="/home" element={<Home />} />
       </Routes>
