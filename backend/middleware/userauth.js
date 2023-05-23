@@ -1,23 +1,28 @@
-const { json } = require('express');
 const jwt = require('jsonwebtoken')
-const User = require('../models/User')
 require('dotenv').config()
 
 const isauthenticated = async (req, res, next) => {
-    const cookies = req.headers.cookie;
-    if (cookies) {
-        const token = cookies.split("=")[1];
+    try {
+        const token = req.cookies.token;
+        console.log("object", token)
 
         if (!token) {
-            return res.status(401).json({ message: "No token Found" })
+            return res.status(401).json({ message: "Please Login First" });
         }
-        jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
+
+        jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
             if (err) {
-                res.status(400).json({ message: "Invalid Token" })
+                return res.status(400).json({ message: "Invalid Token" });
             }
-            req.id = user.id
+            req.id = user.id;
+            next();
+        });
+
+        return;
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
         })
-        next()
     }
 }
 
@@ -25,9 +30,9 @@ const isauthenticated = async (req, res, next) => {
 const refreshToken = async (req, res, next) => {
     const cookiesObject = req.cookies;
     const cookiesString = JSON.stringify(cookiesObject)
-    console.log("cookies-sent" , cookiesString)
+    console.log("cookies-sent", cookiesString)
     if (cookiesString) {
-        console.log("cookies-recieved" , cookiesString)
+        console.log("cookies-recieved", cookiesString)
         const oldToken = cookiesString.split("=")[1];
         if (!oldToken) {
             return res.status(400).json({ message: "Couldn't find token!" })
