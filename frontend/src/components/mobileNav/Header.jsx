@@ -13,7 +13,7 @@ const Header = () => {
         </div>
         <div className="col pe-3">
           <div className="nav-items d-flex justify-content-end">
-            <Link to='/'>
+            <Link to='/create-new-post'>
               <BiMessageSquareAdd className='nav-icons text-light me-3' />
             </Link>
             <Link to='/'>

@@ -19,11 +19,6 @@ const userSchema = new Schema({
         required: [true, "Please enter name"],
         trim: true,
         minlength: [3, "Name must contain at least 3 characters"],
-        validate(value) {
-            if (!validator.isAlpha(value)) {
-                throw new Error("Name can only contain alphabets")
-            }
-        }
     },
     username: {
         type: String,

@@ -3,9 +3,12 @@ import { AiFillHome, AiOutlineSearch } from 'react-icons/ai'
 import { HiShoppingCart } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import Avatar from '../Avatar/Avatar'
-
+import { useSelector } from 'react-redux'
 
 const BottomNav = () => {
+
+  const {user} = useSelector((state)=> state.user)
+
   return (
     <div className="bottom-nav">
       <div className="row nav-menu">
@@ -27,7 +30,7 @@ const BottomNav = () => {
             </Link>
           </li>
           <li>
-            <Link to='/' className='text-light text-decoration-none'>
+            <Link to={`${user?.username}`} className='text-light text-decoration-none'>
               <Avatar className='bottom-nav-icon'/>
             </Link>
           </li>

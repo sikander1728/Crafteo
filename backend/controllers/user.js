@@ -1,8 +1,16 @@
 require('dotenv').config()
 const User = require('../models/User')
+const Post = require('../models/Post')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const nodemailer = require("nodemailer")
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.cloud_name,
+    api_key: process.env.api_key,
+    api_secret: process.env.api_secret
+});
 
 // new user
 const signup = async (req, res, next) => {
@@ -145,11 +153,11 @@ const logout = async (req, res) => {
 }
 
 //get user
-const getUser = async (req, res, next) =>{
+const getUser = async (req, res, next) => {
     const userId = req.id
     let user;
     try {
-        user = await User.findById(userId, "-password")
+        user = await User.findById(userId, "-password").populate("posts")
         if (!user) {
             return res.status(404).json({ message: "User Not Found!" })
         }
@@ -168,21 +176,26 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+const logoUrl = cloudinary.url("https://res.cloudinary.com/dnrootmb9/image/upload/v1682958849/crafteo_sikander/web-logo_ywmy2w.png", {
+    Crop: 'fill'
+});
+
 //sending link for the reset password
 const sendloginlink = async (req, res) => {
     const { email } = req.body;
-
-    if (!email) {
-        res.status(401).json({ message: "Please enter your email" })
-    }
+    console.log(email)
+    let username;
 
     try {
         const isuser = await User.findOne({ email: email })
+        console.log(isuser)
+
+        username = isuser.username
 
         //generating token for reset password
         const token = jwt.sign({ _id: isuser._id },
             process.env.JWT_SECRET_KEY,
-            { expiresIn: "120s" }
+            { expiresIn: '180s', }
         )
 
         const setUserVerifyToken = await User.findByIdAndUpdate(
@@ -195,18 +208,42 @@ const sendloginlink = async (req, res) => {
             const mailOptions = {
                 from: "sikandersultan15@gmail.com",
                 to: email,
-                subject: "Sending email",
-                text: `hello http://localhost:3000/${isuser.id}/${setUserVerifyToken.verifytoken}`,
+                subject: `${username}, we've made it easy to get back to Crafteo`,
                 html: `
+                <div style="margin-top : 20px; margin-left :40px;">
+                    <div style="width :80%;">
+                        <img src="${logoUrl}"
+                            alt="logo" height="33px">
+                        <div style="margin-left :30px">
+                            <h2>Hello ${username},</h2>
+                            <p style="font-size: 18px; color: black">
+                                We apologize for the inconvenience you're experiencing while attempting to log in to Crafteo.
+                                We've received a message that you've forgotten your password. If this was you, 
+                                you can get straight back into your account or reset your password now.
+                                <br/> <b>The Link will Expires in 3 minutes. </b>
+                                </p>
+                            <div style="text-align: -webkit-center;">
+                                <a href="http://localhost:3000/"
+                                    style="background-color: #1f1f38; color: white; padding: 10px 20px; text-decoration: none; display: block;
+                                    width : 240px; height : 25px; text-align: center; font-size: 18px;">Back to Login</a>
+                                <a href="http://localhost:3000/resetPassword/${isuser.id}/${setUserVerifyToken.verifytoken}"
+                                    style="background-color: #1f1f38; color: white; padding: 10px 20px; text-decoration: none; display: block;
+                                    width : 240px; height : 25px; text-align: center; font-size: 18px; margin-top : 15px">Reset Your Password</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 `
             }
 
-            transporter.sendMail(mailOptions , (error, info) => {
-                if(error){
-                    res.status(401).json({message: "email not sent"})
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    res.status(401).json({ message: "email not sent" })
                 }
-                else{
-                    res.status(201).json({message: "email sent"})
+                else {
+                    res.status(201).json({
+                        message: "We've sent an email to you with a link to get back into your account."
+                    })
                 }
             })
         }
@@ -293,21 +330,34 @@ const followUnfollowUser = async (req, res) => {
     }
 }
 
-const updateProfile = async (req,res) => {
+const updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.id)
-        
-        const {email, name, username} = req.body;
-        
-        if(email){
+
+        const { email, name, username, avatar } = req.body;
+
+        if (email) {
             user.email = email;
         }
-        if(name){
+        if (name) {
             user.name = name;
         }
-        if(username){
+        if (username) {
             user.username = username;
         }
+        if (avatar) {
+            if (user.avatar && user.avatar.public_id) {
+                await cloudinary.uploader.destroy(user.avatar.public_id);
+            }
+            const myCloud = await cloudinary.uploader.upload(avatar, {
+                folder: 'avatars'
+            });
+            user.avatar = {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url
+            };
+        }
+
 
         await user.save();
 
@@ -322,9 +372,93 @@ const updateProfile = async (req,res) => {
     }
 }
 
+const deleteProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.id);
+        const posts = user.posts;
+        const followers = user.followers;
+        const following = user.following;
+        const userId = user._id;
+
+        await user.deleteOne();
+
+        res.cookie("token", "", {
+            expires: new Date(0),
+            httpOnly: true,
+        })
+
+        //removing user posts
+        for (let i = 0; i < posts.length; i++) {
+            const post = await Post.findById(posts[i]);
+            await post.deleteOne();
+        }
+
+        // remove user from Followers following
+        for (let i = 0; i < followers.length; i++) {
+            const follower = await User.findById(followers[i]);
+
+            const index = follower.following.indexOf(userId);
+            follower.following.splice(index, 1);
+            await follower.save();
+        }
+
+        // remove user from following followers
+        for (let i = 0; i < following.length; i++) {
+            const follows = await User.findById(following[i]);
+
+            const index = follows.following.indexOf(userId);
+            follows.followers.splice(index, 1);
+            await follows.save();
+        }
+
+        res.status(201).json({
+            message: "Profile Deleted!"
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+const getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).populate("posts");
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Fond!"
+            });
+        }
+        res.status(200).json({
+            user,
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+const getAllUsers = async (req, res) => {
+    const loggedInUserId = req.id;
+    try {
+        const users = await User.find({ _id: { $ne: loggedInUserId } }).limit(5);
+
+        res.status(200).json({
+            users,
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
 module.exports = {
     signup, signin, getUser, sendloginlink,
-    verifyForgotPasswordLink, resetPassword, followUnfollowUser, logout, updateProfile
+    verifyForgotPasswordLink, resetPassword, followUnfollowUser, logout, updateProfile, deleteProfile, getUserProfile, getAllUsers
 }
 
 
