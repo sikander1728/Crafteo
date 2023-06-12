@@ -2,8 +2,14 @@
    margin-inline-start: 19%;
    block-size: 100vh;
    inline-size: 100%;
-   padding: 20px 40px;
+   padding: 50px 40px;
    overflow: auto;
+}
+.posts-section{
+   inline-size: 70%;
+}
+.suggested-users-section{
+   inline-size: 30%;
 }
 @media only screen and (max-width : 1040px) {
    .content-section{
@@ -16,5 +22,10 @@
    }
    .content-section{
       margin-inline-start: 0px;
+   }
+}
+@media only screen and (max-width : 370px){
+   .content-section{
+      padding: 30px 30px;
    }
 }

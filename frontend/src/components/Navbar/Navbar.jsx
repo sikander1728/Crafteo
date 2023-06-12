@@ -4,8 +4,10 @@ import { HiShoppingCart } from 'react-icons/hi'
 import { BiMessageSquareAdd } from 'react-icons/bi'
 import Avatar from '../Avatar/Avatar'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
+  const {user} = useSelector((state)=> state.user)
   return (
     <div className={'desktop-navbar'}>
       <div className="brand_name position-absolute">
@@ -20,7 +22,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className='d-flex'>
-            <Link to='/' className='text-light text-decoration-none'>
+            <Link to='/create-new-post' className='text-light text-decoration-none'>
               <BiMessageSquareAdd className='menu-icon mt-auto mb-auto' />
               <span className='menu-list'>Create</span>
             </Link>
@@ -47,7 +49,7 @@ const Navbar = () => {
       </div>
       <div className='profile'>
         <div className='profile-dropdown'>
-          <Link to='/' className='text-light text-decoration-none d-flex'>
+          <Link to={`/${user?.username}`} className='text-light text-decoration-none d-flex'>
             <Avatar />
             <div className='profile-heading menu-list'>
               <h5 className='m-auto'>Profile</h5>
