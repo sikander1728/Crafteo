@@ -11,6 +11,7 @@ import { LoadUser, UpdateProfile } from "../../Actions/User"
 import { errorToast } from "../../Toasts/error"
 import { successToast } from "../../Toasts/success"
 import { ToastContainer } from "react-toastify"
+import Loading from "../Loading/Loading"
 
 const EditProfile = () => {
    const [avatar, setAvatar] = useState(null)
@@ -128,7 +129,7 @@ const EditProfile = () => {
 
    return (
       <>
-      <ToastContainer/>
+         <ToastContainer />
          <div className="App">
             <div className='main d-flex'>
                <Navbar />
@@ -136,56 +137,59 @@ const EditProfile = () => {
                <div className='content-section d-flex'>
                   <div className="edit-profile-section w-100">
                      <h2>Edit Profile</h2>
-                     <div className="edit-profile-form pt-3 d-flex justify-content-center">
-                        <form onSubmit={handleSubmit}>
-                           <div className="text-center">
-                              {
-                                 avatar || user?.avatar ?
-                                    <div className="d-flex justify-content-center">
-                                       <div className="avatar-background-setting" style={{ backgroundImage: `url(${avatar || user?.avatar.url})` }}></div>
-                                    </div> :
-                                    <img src={DefaultUser} alt="" />
-                              }
-                              <div className="choose-file pt-2">
-                                 <input type="file" className="custom-input-file" accept='image/*'
-                                    onChange={handleImageChange} />
-                              </div>
+                     {
+                        loading ? <Loading /> :
+                           <div className="edit-profile-form pt-3 d-flex justify-content-center">
+                              <form onSubmit={handleSubmit}>
+                                 <div className="text-center">
+                                    {
+                                       avatar || user?.avatar ?
+                                          <div className="d-flex justify-content-center">
+                                             <div className="avatar-background-setting" style={{ backgroundImage: `url(${avatar || user?.avatar.url})` }}></div>
+                                          </div> :
+                                          <img src={DefaultUser} alt="" />
+                                    }
+                                    <div className="choose-file pt-2">
+                                       <input type="file" className="custom-input-file" accept='image/*'
+                                          onChange={handleImageChange} />
+                                    </div>
+                                 </div>
+                                 <div className="form-body edit-profile-body pt-3">
+                                    <div className="mb-3 input position-relative">
+                                       <span className='error-icon position-absolute' ref={el => iconref.current['name'] = el}>
+                                          <BiErrorAlt className='text-danger' />
+                                       </span>
+                                       <label>Name</label>
+                                       <input type="text" className="form-control" name='name'
+                                          placeholder='Full Name' value={formValues.name} onChange={handleChange} />
+                                       <p className=' error-message'>{formErrors.name}</p>
+                                    </div>
+                                    <div className="mb-3 input position-relative">
+                                       <span className='error-icon position-absolute' ref={el => iconref.current['email'] = el}>
+                                          <BiErrorAlt className='text-danger' />
+                                       </span>
+                                       <label>Email</label>
+                                       <input type="text" className="form-control" id="exampleInputEmail1" name='email'
+                                          faria-describedby="emailHelp" placeholder='Email' value={formValues.email} onChange={handleChange} />
+                                       <p className=' error-message'>{formErrors.email}</p>
+                                    </div>
+                                    <div className="mb-3 input position-relative">
+                                       <span className='error-icon position-absolute' ref={el => iconref.current['username'] = el}>
+                                          <BiErrorAlt className='text-danger' />
+                                       </span>
+                                       <label>Username</label>
+                                       <input type="text" className="form-control" aria-label="Username" name='username'
+                                          placeholder='Username' value={formValues.username} onChange={handleChange} />
+                                       <p className=' error-message'>{formErrors.username}</p>
+                                    </div>
+                                    <div className="text-center pt-2">
+                                       <button disabled={loading || !formChanged}
+                                          className="btn rounded-5 btn-primary">Edit Profile</button>
+                                    </div>
+                                 </div>
+                              </form>
                            </div>
-                           <div className="form-body edit-profile-body pt-3">
-                              <div className="mb-3 input position-relative">
-                                 <span className='error-icon position-absolute' ref={el => iconref.current['name'] = el}>
-                                    <BiErrorAlt className='text-danger' />
-                                 </span>
-                                 <label>Name</label>
-                                 <input type="text" className="form-control" name='name'
-                                    placeholder='Full Name' value={formValues.name} onChange={handleChange} />
-                                 <p className=' error-message'>{formErrors.name}</p>
-                              </div>
-                              <div className="mb-3 input position-relative">
-                                 <span className='error-icon position-absolute' ref={el => iconref.current['email'] = el}>
-                                    <BiErrorAlt className='text-danger' />
-                                 </span>
-                                 <label>Email</label>
-                                 <input type="text" className="form-control" id="exampleInputEmail1" name='email'
-                                    faria-describedby="emailHelp" placeholder='Email' value={formValues.email} onChange={handleChange} />
-                                 <p className=' error-message'>{formErrors.email}</p>
-                              </div>
-                              <div className="mb-3 input position-relative">
-                                 <span className='error-icon position-absolute' ref={el => iconref.current['username'] = el}>
-                                    <BiErrorAlt className='text-danger' />
-                                 </span>
-                                 <label>Username</label>
-                                 <input type="text" className="form-control" aria-label="Username" name='username'
-                                    placeholder='Username' value={formValues.username} onChange={handleChange} />
-                                 <p className=' error-message'>{formErrors.username}</p>
-                              </div>
-                              <div className="text-center pt-2">
-                                 <button disabled={loading || !formChanged}
-                                    className="btn rounded-5 btn-primary">Edit Profile</button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
+                     }
                   </div>
                </div>
                <BottomNav />

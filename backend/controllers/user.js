@@ -157,7 +157,7 @@ const getUser = async (req, res, next) => {
     const userId = req.id
     let user;
     try {
-        user = await User.findById(userId, "-password").populate("posts")
+        user = await User.findById(userId, "-password").populate("posts").exec()
         if (!user) {
             return res.status(404).json({ message: "User Not Found!" })
         }
@@ -444,15 +444,20 @@ const getUserProfile = async (req, res) => {
 const getAllUsers = async (req, res) => {
     const loggedInUserId = req.id;
     try {
-        const users = await User.find({ _id: { $ne: loggedInUserId } }).limit(5);
+        const loggedInUser = await User.findById(loggedInUserId);
+        const followedUserIds = loggedInUser.following; 
+
+        const users = await User.find({
+            _id: { $nin: [...followedUserIds, loggedInUserId] }
+        }).limit(5);
 
         res.status(200).json({
             users,
-        })
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
-        })
+        });
     }
 }
 

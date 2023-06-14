@@ -25,3 +25,40 @@ export const postReducer = createReducer(initialState, {
       state.postsuccess = null;
    }
 })
+
+export const postoffollowingReducer = createReducer(initialState, {
+   postoffollowingRequest: (state) => {
+       state.loading = true;
+   },
+   postoffollowingSuccess: (state, action) => {
+       state.loading = false;
+       state.posts = action.payload;
+   },
+   postoffollowingFailure: (state, action) => {
+       state.loading = false;
+       state.iserror += action.payload
+   },
+   ClearErrors: (state,action) => {
+       state.iserror = null
+   }
+})
+
+export const likeUnlikeReducer = createReducer(initialState, {
+   likeUnlikeRequest: (state) => {
+       state.loading = true;
+   },
+   likeUnlikeSuccess: (state, action) => {
+       state.loading = false;
+       state.message = action.payload;
+   },
+   likeUnlikeFailure: (state, action) => {
+       state.loading = false;
+       state.iserror += action.payload
+   },
+   ClearErrors: (state,action) => {
+       state.iserror = null
+   },
+   ClearMessage: (state,action) => {
+      state.message = null
+  }
+})

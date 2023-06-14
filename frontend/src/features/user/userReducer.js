@@ -30,15 +30,13 @@ export const userReducer = createReducer(initialState, {
     SignupSuccess: (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        state.isauthenticated = true
     },
     SignupFailure: (state, action) => {
         state.loading = false;
         state.iserror += action.payload
-        state.isauthenticated = false
     },
     ClearError: (state) => {
-        state.iserror = ""
+        state.iserror = "" 
     },
     ClearSuccess: (state) => {
         state.message = ""

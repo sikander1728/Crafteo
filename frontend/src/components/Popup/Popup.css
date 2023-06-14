@@ -4,7 +4,7 @@
   inset-inline-start: 0;
   inline-size: 100%;
   block-size: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,14 @@
 
 .popup-content p {
   margin-block-end: 0px;
+  padding: 6px 10px;
   color: white;
   cursor: pointer;
   border-block-end: 1px solid darkgray;
+  transition: all 0.3s ease-in-out;
+}
+.popup-content p:hover{
+  background-color: rgba(77, 181, 255, 0.7);
+  font-weight: 700;
+  letter-spacing: 1px;
 }

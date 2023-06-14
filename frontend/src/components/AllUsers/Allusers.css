@@ -5,6 +5,11 @@
 .users .username h4{
    margin-block-end: 0px;
 }
+.username a{
+   text-decoration: none;
+   color: black;
+   font-weight: 700;
+}
 .users .username h6{
    font-weight: 700;
    color: rgb(77, 181, 255);
