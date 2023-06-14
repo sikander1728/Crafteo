@@ -19,6 +19,9 @@
     inline-size: 70%;
     padding-inline-start: 20px;
 }
+.brand_name .crafteo-responsive{
+    display: none;
+}
 
 .menu {
     inset-block-start: 150px;
@@ -84,6 +87,14 @@
 }
 
 @media only screen and (max-width : 1040px) {
+    .brand_name .crafteo-responsive{
+        display: block;
+        padding: 0px;
+        margin-inline-start: 10px;
+    }
+    .brand_name img{
+        display: none;
+    }
     .menu-list {
         display: none;
     }
@@ -91,9 +102,6 @@
     .menu ul li:hover, .profile-dropdown:hover{
         background-color: #1f1f38;;
         border-radius: 0px;
-    }
-    .profile-dropdown{
-        margin-inline-start: 0px;
     }
     .desktop-navbar {
         inline-size: 70px;

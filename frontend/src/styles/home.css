@@ -2,7 +2,7 @@
    margin-inline-start: 19%;
    block-size: 100vh;
    inline-size: 100%;
-   padding: 50px 40px;
+   padding: 30px 40px;
    overflow: auto;
 }
 .posts-section{
@@ -10,6 +10,7 @@
 }
 .suggested-users-section{
    inline-size: 30%;
+   padding-block-start: 30px;
 }
 @media only screen and (max-width : 1040px) {
    .content-section{
@@ -27,5 +28,30 @@
 @media only screen and (max-width : 370px){
    .content-section{
       padding: 30px 30px;
+   }
+}
+.no-post-section{
+   display: grid;
+   place-items: center;
+   block-size: 100vh;
+}
+.no-post-section img{
+   inline-size: 100px;
+}
+
+@media only screen and (max-width : 915px){
+   .posts-section{
+      inline-size: 60%;
+   }
+   .suggested-users-section{
+      inline-size: 40%;
+   }
+}
+@media only screen and (max-width : 580px){
+   .posts-section{
+      inline-size: 100%;
+   }
+   .suggested-users-section{
+      display: none;
    }
 }

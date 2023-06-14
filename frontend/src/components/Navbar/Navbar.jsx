@@ -12,6 +12,7 @@ const Navbar = () => {
     <div className={'desktop-navbar'}>
       <div className="brand_name position-absolute">
         <img src="/logo.png" alt="crafteo_logo" />
+        <img className='crafteo-responsive' src="/image.png" alt="crafteo_logo" />
       </div>
       <div className='menu position-absolute'>
         <ul className='list-unstyled'>

@@ -7,7 +7,7 @@ const user = require('./routers/user')
 const post = require('./routers/post')
 
 const app = express()
-app.use(express.json({limit: '50mb'}))
+app.use(express.json({limit: '100mb'}))
 app.use(cors({ credentials: true, origin: "http://localhost:3000"})) 
 app.use(cookieParser())
 app.use('/api', user)

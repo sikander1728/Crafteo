@@ -16,8 +16,8 @@ const Profile = () => {
    const { user } = useSelector((state) => state.user)
    const [isPopupOpen, setIsPopupOpen] = useState(false);
    const dispatch = useDispatch();
-   const navigate = useNavigate()
-
+   const navigate = useNavigate();
+   
    const handleIconClick = () => {
       setIsPopupOpen(true);
    };
@@ -29,6 +29,14 @@ const Profile = () => {
       await dispatch(logoutUser())
       navigate('/');
    }
+   const Items = [{
+      label: 'Logout',
+      onClick: logouthandler
+   },
+   {
+      label: 'Delete My Profile',
+   },
+   ]
    return (
       <>
          <ToastContainer />
@@ -61,9 +69,9 @@ const Profile = () => {
                               onClick={handleIconClick} alt="profil-setting-icon" />
                         </div>
                         <div className="post-foolower-following-section d-flex pt-2">
-                           <h5>{user?.posts.length} <br/> posts</h5>
-                           <h5>{user?.followers.length} <br/> followers</h5>
-                           <h5>{user?.following.length} <br/> followings</h5>
+                           <h5>{user?.posts.length} <br /> posts</h5>
+                           <h5>{user?.followers.length} <br /> followers</h5>
+                           <h5>{user?.following.length} <br /> followings</h5>
                         </div>
                      </div>
                   </div>
@@ -79,8 +87,7 @@ const Profile = () => {
             </div>
          </div>
          {isPopupOpen && (
-            <Popup onClose={handleClosePopup} logout={logouthandler}
-               logoutUser="Logout" deleteProfile="Delete My Profile" />
+            <Popup onClose={handleClosePopup} Items={Items} />
          )}
       </>
    )

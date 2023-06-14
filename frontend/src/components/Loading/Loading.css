@@ -3,7 +3,7 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   block-size: 100%;
+   block-size: 80vh;
  }
  
  .loading-spinner {
