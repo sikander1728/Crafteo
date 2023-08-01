@@ -1,8 +1,5 @@
 import React from 'react'
 import '../../styles/home.css'
-import Navbar from '../Navbar/Navbar'
-import Header from '../mobileNav/Header'
-import BottomNav from '../mobileNav/BottomNav'
 import '../NewPost/NewPost.css'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -69,8 +66,6 @@ const NewPost = () => {
       <div className="App">
          <ToastContainer />
          <div className='main d-flex'>
-            <Navbar />
-            <Header />
             <div className='content-section'>
                <div className="create-new-post-section">
                   {
@@ -89,10 +84,11 @@ const NewPost = () => {
                                              onChange={handleImageChange} />
                                        </div>
                                     </div>
-                                    <div className="post-content-section mb-5">
+                                    <div className="post-content-section ">
                                        <div className="post-caption pb-4">
                                           <textarea
                                              type="text"
+                                             rows={10}
                                              placeholder='Wtite a Caption...'
                                              value={caption}
                                              onChange={(e) => setCaption(e.target.value)}
@@ -120,7 +116,6 @@ const NewPost = () => {
                   }
                </div>
             </div>
-            <BottomNav />
          </div>
       </div>
    )

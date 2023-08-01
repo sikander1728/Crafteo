@@ -132,4 +132,53 @@ export const allUsersReducer = createReducer(initialState, {
         state.loading = false;
         state.iserror += action.payload
     },
+
+    followUserRequest: (state) => {
+        state.loading = true;
+    },
+    followUserSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    followUserFailure: (state, action) => {
+        state.loading = false;
+        state.iserror = action.payload;
+    },
+    ClearError: (state) => {
+        state.iserror = "" 
+    },
+    ClearSuccess: (state) => {
+        state.message = ""
+    },
+})
+
+export const searchUserReducer = createReducer(initialState, {
+    searchUserRequest: (state) => {
+        state.loading = true;
+    },
+    searchUserSuccess: (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+    },
+    searchUserFailure: (state, action) => {
+        state.loading = false;
+        state.iserror += action.payload
+    },
+    resetSearch: (state) => {
+        state.users = null;
+    }
+})
+
+export const getSingleUser = createReducer(initialState, {
+    singleUserRequest: (state) => {
+        state.loading = true;
+    },
+    singleUserSuccess: (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+    },
+    singleUserFailure: (state, action) => {
+        state.loading = false;
+        state.iserror += action.payload
+    },
 })

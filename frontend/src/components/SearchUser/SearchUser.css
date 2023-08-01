@@ -1,0 +1,43 @@
+/* .search-section {
+   display: block;
+} */
+
+.search-section h3 {
+   font-weight: 700;
+}
+.search-section form input {
+   inline-size: 50%;
+   block-size: 40px;
+   padding: 5px 20px;
+   border-radius: 50px;
+   border: 2px solid #1f1f38;
+}
+.input-search{
+   position: relative;
+}
+.search-section svg {
+   font-size: 30px;
+   position: absolute;
+   inset-inline-start: 70%;
+   inset-block-start: 3px;
+} 
+
+@media screen and (max-width : 900px){
+   .search-section svg{
+      inset-inline-start: 68%;
+   }
+}
+
+@media screen and (max-width : 600px) {
+   .search-section form input{
+      inline-size: 70%;
+   }
+   .search-section svg{
+      inset-inline-start: 76%;
+   }
+}
+@media  screen and (max-width : 400px) {
+   .search-section form input{
+      inline-size: 90%;
+   }
+}

@@ -1,0 +1,65 @@
+.singlepost-overlay {
+   position: fixed;
+   inset-block-start: 0;
+   inset-inline-start: 0;
+   inline-size: 100%;
+   block-size: 100%;
+   background-color: rgba(0, 0, 0, 0.7);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 9999;
+ }
+ 
+ .singlepost-content {
+   background-color: white;
+   inline-size: 70%;
+   block-size: 90vh;
+   border-radius: 4px;
+   z-index: 10000;
+   font-family: 'Montserrat';
+   color: white;
+ }
+ 
+ .singlepost-image {
+   /* padding: 20px 10px 0px 10px;
+   border-block-end: 1px solid darkgray;
+   position: relative; */
+   inline-size: 50%;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+ }
+ .singlepost-body > svg{
+   position: absolute;
+   inset-inline-end: 25px;
+   cursor: pointer;
+}
+.singlepost-body{
+  inline-size: 50%;
+  padding: 20px;
+}
+.singlepost-body > .users{
+  border-block-end: 1px solid darkgray;
+  padding-block-end: 10px;
+}
+.singlepost-body .users .avatar{
+  inline-size: 40px;
+  block-size: 40px;
+}
+.singlepost-body .like-comment-section{
+  position: absolute;
+  inset-block-end: 10%;
+}
+.caption p{
+  color: black;
+}
+
+@media screen and (max-width : 768px){
+  .singlepost-content{
+    inline-size: 90%;
+  }
+  .singlepost-body > svg{
+    inset-inline-end: 15px;
+  }
+}

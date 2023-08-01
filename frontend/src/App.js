@@ -15,28 +15,40 @@ import { LoadUser } from "./Actions/User";
 import NewPost from "./components/NewPost/NewPost";
 import Profile from "./components/Profile/Profile";
 import EditProfile from "./components/Edit Profile/EditProfile";
+import SingleUserProfile from "./components/SingleUserProfile/SingleUserProfile";
+import Navbar from "./components/Navbar/Navbar";
+import Header from "./components/mobileNav/Header";
+import BottomNav from "./components/mobileNav/BottomNav";
+import SearchUser from "./components/SearchUser/SearchUser";
 
 function App() {
-  const { isauthenticated , user} = useSelector((state) => state.user)
+  const { isauthenticated, user } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(LoadUser())
-    
   }, [dispatch])
-
   return (
     <Router>
+      {
+        isauthenticated && <>
+          <Navbar />
+          <Header />
+        </>
+      }
       <Routes>
         <Route exact path="/" element={isauthenticated ? <Home /> : <SignIn />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/accounts/password/reset" element={<ForgotPassword />} />
         <Route exact path="/resetPassword/:id/:token" element={<ResetPassword />} />
-        <Route exact path="/create-new-post" element={isauthenticated ? <NewPost/> : <SignIn/>}/>
-        <Route exact path={`/${user?.username}`} element={isauthenticated ? <Profile/> : <SignIn/>} />
-        <Route exact path="/accounts/edit" element={ isauthenticated? <EditProfile/> : <SignIn/>} />
+        <Route exact path="/create-new-post" element={isauthenticated ? <NewPost /> : <SignIn />} />
+        <Route exact path={`/${user?.username}`} element={isauthenticated ? <Profile /> : <SignIn />} />
+        <Route exact path="/accounts/edit" element={isauthenticated ? <EditProfile /> : <SignIn />} />
+        <Route exact path='/:username' element={isauthenticated ? <SingleUserProfile /> : <SignIn />} />
+        <Route exact path="/search" element={isauthenticated ? <SearchUser/> : <SignIn/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {isauthenticated && <BottomNav />}
     </Router>
   )
 }

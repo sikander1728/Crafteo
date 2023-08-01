@@ -1,8 +1,5 @@
 import "../../styles/home.css"
 import "./EditProfile.css"
-import Navbar from '../Navbar/Navbar'
-import Header from '../mobileNav/Header'
-import BottomNav from '../mobileNav/BottomNav'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import DefaultUser from "../../images/user-default-avatar.png"
@@ -132,8 +129,6 @@ const EditProfile = () => {
          <ToastContainer />
          <div className="App">
             <div className='main d-flex'>
-               <Navbar />
-               <Header />
                <div className='content-section d-flex'>
                   <div className="edit-profile-section w-100">
                      <h2>Edit Profile</h2>
@@ -192,7 +187,6 @@ const EditProfile = () => {
                      }
                   </div>
                </div>
-               <BottomNav />
             </div >
          </div >
       </>

@@ -75,12 +75,12 @@ export const Signupuser = (formValues) => async (dispatch) => {
 //Load User request
 export const LoadUser = () => async (dispatch) => {
     try {
-        
+
         dispatch({
             type: "LoadUserRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/users",{
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/users", {
             withCredentials: true,
         })
 
@@ -185,7 +185,7 @@ export const resetPassword = (formValues, id, token) => async (dispatch) => {
             payload: error.response.data.message
         })
     }
-} 
+}
 
 export const UpdateProfile = (name, email, username, avatar) => async (dispatch) => {
     try {
@@ -214,18 +214,18 @@ export const UpdateProfile = (name, email, username, avatar) => async (dispatch)
             type: "editProfileError",
             payload: error.response.data.message
         })
-    } 
+    }
 }
 
 //get all users
 export const getAllUsers = () => async (dispatch) => {
     try {
-        
+
         dispatch({
             type: "allUserRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/allUsers",{
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/allUsers", {
             withCredentials: true,
         })
 
@@ -246,19 +246,19 @@ export const getAllUsers = () => async (dispatch) => {
 //logout User 
 export const logoutUser = () => async (dispatch) => {
     try {
-        
+
         dispatch({
             type: "logoutUserRequest",
         })
 
-        await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/logout",{
+        await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/logout", {
             withCredentials: true,
         })
 
         dispatch({
             type: "logoutUserSuccess"
         })
- 
+
     } catch (error) {
         // console.log(error.response.data.message)
         dispatch({
@@ -268,3 +268,80 @@ export const logoutUser = () => async (dispatch) => {
     }
 }
 
+export const folloUnfollow = (id) => async (dispatch) => {
+    try {
+
+        dispatch({
+            type: "followUserRequest",
+        })
+
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/followUnfollowUser`, {
+            withCredentials: true,
+        })
+
+        dispatch({
+            type: "followUserSuccess",
+            payload: data.message
+        })
+
+    } catch (error) {
+        // console.log(error.response.data.message)
+        dispatch({
+            type: "followUserFailure",
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const searchUser = (query) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "searchUserRequest",
+        })
+
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/searchUser`,
+            {
+                params: { query },
+                withCredentials: true
+            },
+            )
+
+        dispatch({
+            type: "searchUserSuccess",
+            payload: data
+        })
+
+    } catch (error) {
+        // console.log(error.response.data.message)
+        dispatch({
+            type: "searchUserFailure",
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const getSingleProfile = (username) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "singleUserRequest",
+        })
+        console.log(username)
+
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/userProfile/${username}`,
+            {
+                withCredentials: true
+            },
+            )
+
+        dispatch({
+            type: "singleUserSuccess",
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: "singleUserFailure",
+            payload: error
+        })
+    }
+}

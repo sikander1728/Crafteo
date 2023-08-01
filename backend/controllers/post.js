@@ -108,15 +108,37 @@ const deletePost = async (req, res) => {
    }
 }
 
-const getPostofFollowing = async (req, res) => {
+// const getPostofFollowing = async (req, res) => {
+//    try {
+//       const user = await User.findById(req.id);
+//       const posts = await Post.find({
+//          owner: {
+//             $in: user.following,
+//          },
+//       }).populate('owner likes.user comments.user')
+
+//       res.status(201).json({
+//          posts: posts.reverse(),
+//       })
+//    } catch (error) {
+//       res.status(500).json({
+//          message: error.message
+//       })
+//    }
+// }
+
+const getMyPosts = async (req, res) => {
    try {
       const user = await User.findById(req.id);
-      const posts = await Post.find({
-         owner: {
-            $in: user.following,
-         },
-      }).populate("owner likes comments.user");
-
+      const posts = [];
+     
+      for(let i=0; i<user.posts.length; i++){
+         const post = await Post.findById(user.posts[i]).populate(
+            "likes comments.user owner"
+         );
+         posts.push(post);
+      }
+ 
       res.status(201).json({
          posts: posts.reverse(),
       })
@@ -126,6 +148,8 @@ const getPostofFollowing = async (req, res) => {
       })
    }
 }
+
+
 
 const addComment = async (req, res) => {
    try {
@@ -208,4 +232,4 @@ const deleteComment = async (req, res) => {
    }
 }
 
-module.exports = { createPost, likeAndUnlikePost, deletePost, getPostofFollowing, addComment, deleteComment }
+module.exports = { createPost, likeAndUnlikePost, deletePost, getMyPosts, addComment, deleteComment }

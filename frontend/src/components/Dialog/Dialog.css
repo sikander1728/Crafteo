@@ -1,0 +1,48 @@
+.Dialog-overlay {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.Dialog-content {
+  background-color: #1f1f38;
+  inline-size: 40%;
+  block-size: 70vh;
+  border-radius: 4px;
+  text-align: center;
+  z-index: 10000;
+  font-family: 'Montserrat';
+  color: white;
+}
+
+.Dialog-header {
+  padding: 20px 10px 0px 10px;
+  border-block-end: 1px solid darkgray;
+  position: relative;
+}
+.Dialog-header svg{
+  position: absolute;
+  inset-inline-end: 25px;
+  cursor: pointer;
+}
+
+.popup-content {
+  margin-block-end: 0px;
+  color: white;
+  cursor: pointer;
+  border-block-end: 1px solid darkgray;
+  transition: all 0.3s ease-in-out;
+}
+
+.popup-content p:hover {
+  background-color: rgba(77, 181, 255, 0.7);
+  font-weight: 700;
+  letter-spacing: 1px;
+}

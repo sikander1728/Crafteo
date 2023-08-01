@@ -20,7 +20,7 @@ const BottomNav = () => {
             </Link>
           </li>
           <li>
-            <Link to='/' className='text-light text-decoration-none'>
+            <Link to='/search' className='text-light text-decoration-none'>
               <AiOutlineSearch  className='bottom-nav-icon'/>
             </Link>
           </li>

@@ -18,6 +18,7 @@
   text-align: center;
   z-index: 10000;
   font-family: 'Montserrat';
+  padding: 0px;
 }
 
 .popup-content p {

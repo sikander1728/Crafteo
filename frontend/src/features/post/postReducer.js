@@ -36,10 +36,27 @@ export const postoffollowingReducer = createReducer(initialState, {
    },
    postoffollowingFailure: (state, action) => {
        state.loading = false;
-       state.iserror += action.payload
+       state.iserror = action.payload
    },
    ClearErrors: (state,action) => {
        state.iserror = null
+   }
+})
+
+export const myPostsReducer = createReducer(initialState, {
+   myPostRequest: (state) => {
+       state.loading = true;
+   },
+   myPostSuccess: (state, action) => {
+       state.loading = false;
+       state.posts = action.payload;
+   },
+   myPostFailure: (state, action) => {
+       state.loading = false;
+       state.iserror = action.payload
+   },
+   ClearErrors: (state,action) => {
+       state.iserror = null 
    }
 })
 

@@ -1,59 +1,56 @@
 import "../Posts/Posts.css"
 import { Link } from "react-router-dom"
-import { FiMoreHorizontal } from 'react-icons/fi'
 import { FaRegCommentDots } from 'react-icons/fa'
 import { BsHeart, BsHeartFill } from 'react-icons/bs'
-import { useEffect, useState } from "react"
-import Popup from "../Popup/Popup"
+import { useEffect, useState, useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getPostofFollowing, likeandUnlike } from "../../Actions/Post"
+import {likeandUnlike } from "../../Actions/Post"
+import Dialog from "../Dialog/Dialog"
+import AllUser from '../AllUsers/AllUsers'
 
 const Posts = ({
    postId, caption, postImage, likes = [], comments = [],
-   ownerImage, ownerName, ownerId,
-   isAccount = false
+   ownerImage, ownerName,
 }) => {
 
-   const [liked, setLiked] = useState(false)
-   const [isPopupOpen, setIsPopupOpen] = useState(false);
+   const [liked, setLiked] = useState(false);
+   const [isDialogOpen, setIsDialogOpen] = useState(false);
+   const [likeCount, setLikeCount] = useState(likes.length);
    const dispatch = useDispatch()
-   const {user} = useSelector((state)=> state.user)
+   const { user } = useSelector((state) => state.user)
 
-   const likehandler = async () => {
-      setLiked(!liked)
-      await dispatch(likeandUnlike(postId))
-      dispatch(getPostofFollowing())
-   }
-   const handleIconClick = () => {
-      setIsPopupOpen(true);
-   };
+   const checkLikedByCurrentUser = useCallback(() => {
+      return likes.some((item) => item._id === user._id);
+   }, [likes, user._id]);
 
-   const handleClosePopup = () => {
-      setIsPopupOpen(false);
-   };
-
-   useEffect(()=>{
-      likes.forEach((item)=>{
-         if(item._id === user._id){
-            setLiked(true)
-         }
-      })
-   },[likes, user._id])
-
-   const Items = [
-      {
-         label: 'Update Caption',
-      },
-      {
-         label: 'Delete Post',
+   useEffect(() => {
+      const likedByCurrentUser = checkLikedByCurrentUser();
+      setLiked(likedByCurrentUser);
+   }, [likes, user._id, checkLikedByCurrentUser]);
+   
+   const likehandler = () => {
+      if (liked) {
+         setLikeCount((prevCount) => prevCount - 1);
+      } else {
+         setLikeCount((prevCount) => prevCount + 1);
       }
-   ]
+      setLiked((prevLiked) => !prevLiked);   
+      dispatch(likeandUnlike(postId));
+   };
+
+   const handleOpenDialog = () => {
+      setIsDialogOpen(true);
+   };
+
+   const handleCloseDialog = () => {
+      setIsDialogOpen(false);
+   };
 
    return (
       <>
          <div className="post-section">
             <div className="post-header d-flex">
-               <Link to={`/username`} className="d-flex align-items-center w-75">
+               <Link to={`/${ownerName}`} className="d-flex align-items-center w-75">
                   <div className='avatar' style=
                      {{
                         backgroundImage: `url(${ownerImage})`,
@@ -63,11 +60,6 @@ const Posts = ({
                   </div>
                   <h5 className="ps-3 pt-2">{ownerName}</h5>
                </Link>
-               <div className="more w-25 d-flex justify-content-end align-items-center">
-                  {
-                     isAccount ? <FiMoreHorizontal onClick={handleIconClick} /> : null
-                  }
-               </div>
             </div>
             <div className="post-image mt-2">
                <img src={postImage} alt="post-img" />
@@ -81,7 +73,7 @@ const Posts = ({
                <FaRegCommentDots className="ms-4" />
             </div>
             <div className="likes-number mt-3">
-               <h6>{likes.length} likes</h6>
+               <h6 style={{ cursor: 'pointer' }} onClick={handleOpenDialog}>{likeCount} likes</h6>
             </div>
             <div className="post-caption">
                <p>
@@ -89,8 +81,10 @@ const Posts = ({
                </p>
             </div>
          </div>
-         {isPopupOpen && (
-            <Popup onClose={handleClosePopup} Items={Items} />
+         {isDialogOpen && (
+            <Dialog onClose={handleCloseDialog} DialogTitle='Likes'>
+               <AllUser />
+            </Dialog>
          )}
       </>
    )

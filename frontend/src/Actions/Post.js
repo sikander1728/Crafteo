@@ -58,6 +58,31 @@ export const getPostofFollowing = () => async (dispatch) => {
     }
 }
 
+export const getMyPosts = () => async (dispatch) => {
+    try {
+        
+        dispatch({
+            type: "myPostRequest",
+        })
+
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/myPosts",{
+            withCredentials: true,
+        })
+
+        dispatch({
+            type: "myPostSuccess",
+            payload: data.posts
+        })
+
+    } catch (error) {
+        // console.log(error.response.data.message)
+        dispatch({
+            type: "myPostFailure",
+            payload: error.response.data.message
+        })
+    }
+}
+
 // LikeUnlike Reducer
 export const likeandUnlike = (id) => async (dispatch) => {
     try {

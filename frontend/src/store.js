@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { postReducer , postoffollowingReducer, likeUnlikeReducer} from "./features/post/postReducer"
-import {allUsersReducer, userReducer} from "./features/user/userReducer"
+import { postReducer , postoffollowingReducer, likeUnlikeReducer, myPostsReducer} from "./features/post/postReducer"
+import {allUsersReducer, getSingleUser, searchUserReducer, userReducer} from "./features/user/userReducer"
 
 export const store = configureStore({
     reducer: {
@@ -8,6 +8,9 @@ export const store = configureStore({
         post: postReducer,
         allUsers: allUsersReducer,
         postoffollowing: postoffollowingReducer,
+        myPosts: myPostsReducer,
         likeUnlike: likeUnlikeReducer,
+        userSearch: searchUserReducer,
+        singleUser: getSingleUser,
     },
 })

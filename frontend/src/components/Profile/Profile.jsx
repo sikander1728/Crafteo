@@ -1,8 +1,5 @@
 import "../../styles/home.css"
 import "../Profile/Profile.css"
-import BottomNav from '../mobileNav/BottomNav'
-import Header from '../mobileNav/Header'
-import Navbar from '../Navbar/Navbar'
 import DefaultUser from "../../images/user-default-avatar.png"
 import { useDispatch, useSelector } from 'react-redux'
 import Settings from "../../images/settings.png"
@@ -11,13 +8,25 @@ import { useState } from 'react'
 import Popup from "../Popup/Popup"
 import { logoutUser } from "../../Actions/User"
 import { ToastContainer } from "react-toastify"
+import { useEffect } from "react"
+import { getMyPosts } from "../../Actions/Post"
+import PostCards from "../PostCards/PostCards"
+import SinglePost from "../SinglePost/SinglePost"
+import RotateLoader from "react-spinners/RotateLoader"
 
 const Profile = () => {
    const { user } = useSelector((state) => state.user)
    const [isPopupOpen, setIsPopupOpen] = useState(false);
+   const { posts, loading } = useSelector((state) => state.myPosts)
+   const [isPostOpen, setIsPostOpen] = useState(false);
+   const [selectedPost, setSelectedPost] = useState(null);
    const dispatch = useDispatch();
    const navigate = useNavigate();
-   
+
+   useEffect(() => {
+      dispatch(getMyPosts())
+   }, [dispatch])
+
    const handleIconClick = () => {
       setIsPopupOpen(true);
    };
@@ -28,6 +37,15 @@ const Profile = () => {
    const logouthandler = async () => {
       await dispatch(logoutUser())
       navigate('/');
+   }
+   const handlePostOpen = (post) => {
+      console.log(post)
+      setSelectedPost(post)
+      setIsPostOpen(true)
+   }
+   const handlePostClose = () => {
+      setSelectedPost(null)
+      setIsPostOpen(false)
    }
    const Items = [{
       label: 'Logout',
@@ -42,8 +60,6 @@ const Profile = () => {
          <ToastContainer />
          <div className="App">
             <div className='main d-flex'>
-               <Navbar />
-               <Header />
                <div className='content-section'>
                   <div className="user-info d-flex">
                      <div className="avatar-section text-center">
@@ -82,10 +98,33 @@ const Profile = () => {
                         <h5>{user?.following.length} <br /> followings</h5>
                      </div>
                   </div>
+                  <div className="myposts-section">
+                     <div className="posts-cards">
+                        {
+                           loading ? (
+                              <div className="react-spinner">
+                                 <RotateLoader color='rgb(77, 181, 255)' />
+                              </div>
+                           ) : (
+                              posts?.length > 0 ? (
+                                 posts.map((post) => (
+                                    <PostCards key={post._id} post={post} openPost={handlePostOpen} />
+                                 ))
+                              ) : (
+                                 <div className="text-center w-100">
+                                    <h5>No Post Made Yet</h5>
+                                 </div>
+                              )
+                           )
+                        }
+                     </div>
+                  </div>
                </div>
-               <BottomNav />
             </div>
          </div>
+         {isPostOpen && (
+            <SinglePost onclose={handlePostClose} post={selectedPost} />
+         )}
          {isPopupOpen && (
             <Popup onClose={handleClosePopup} Items={Items} />
          )}

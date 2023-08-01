@@ -1,15 +1,23 @@
 import "../AllUsers/Allusers.css"
 import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux"
+import { folloUnfollow } from "../../Actions/User"
+import DefaultUser from '../../images/user-default-avatar.png'
 
-const AllUsers = ({ username, userAvatar }) => {
-   // const {user} = useSelector((state)=> state.user)
+const AllUsers = ({ username, userAvatar, userId}) => {
+   const dispatch = useDispatch();
+
+   const followhandler = () => {
+      dispatch(folloUnfollow(userId))
+   }
+
    return (
       <>
          <div className='users d-flex align-items-center mb-3 '>
             <Link to={`/${username}`}>
                <div className='avatar' style=
                   {{
-                     backgroundImage: `url(${userAvatar})`,
+                     backgroundImage: `url(${userAvatar ? userAvatar : DefaultUser})`,
                      backgroundPosition: 'center',
                      backgroundSize: 'cover'
                   }} >
@@ -19,7 +27,7 @@ const AllUsers = ({ username, userAvatar }) => {
                <Link to={`/${username}`}>
                   <h5>{username}</h5>
                </Link>
-               <h6>Follow</h6>
+               {userId? <h6 style={{cursor: 'pointer'}} onClick={followhandler}>Follow</h6> : null}
             </div>
          </div>
       </>

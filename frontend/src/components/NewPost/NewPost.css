@@ -70,11 +70,13 @@
    padding: 20px 30px;
    background-color: #F5F5F5;
    border-radius: 5px;
+   block-size: auto;
 }
-
+.post-content-section .post-caption{
+   min-block-size: 85%;
+}
 .post-content-section .post-caption textarea {
    inline-size: 100%;
-   block-size: 200px;
    border: none;
    outline: none;
    background-color: transparent;

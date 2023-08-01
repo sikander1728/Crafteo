@@ -424,8 +424,8 @@ const deleteProfile = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id).populate("posts");
-
+        const {username} = req.params;
+        const user = await User.findOne({username}).populate('followers following posts');
         if (!user) {
             return res.status(404).json({
                 message: "User Not Fond!"
@@ -445,7 +445,7 @@ const getAllUsers = async (req, res) => {
     const loggedInUserId = req.id;
     try {
         const loggedInUser = await User.findById(loggedInUserId);
-        const followedUserIds = loggedInUser.following; 
+        const followedUserIds = loggedInUser.following;
 
         const users = await User.find({
             _id: { $nin: [...followedUserIds, loggedInUserId] }
@@ -461,8 +461,54 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const getPostofFollowing = async (req, res) => {
+    try {
+        const user = await User.findById(req.id);
+        const posts = await Post.find({
+            owner: {
+                $in: user.following,
+            },
+        }).populate('owner likes comments.user')
+
+        res.status(201).json({
+            posts: posts.reverse(),
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+const userSearch = async (req, res) => {
+    const { query } = req.query;
+    try {
+        if (!query || query.trim() === '' ) {
+            res.json({
+                message: "No Query Found !"
+            });
+        } else {
+            const users = await User.find({
+                $or: [
+                    { name: { $regex: new RegExp(query, 'i') } },
+                    { username: { $regex: new RegExp(query, 'i') } },
+                ],
+            });
+
+            if(users.length > 0){
+                res.json(users);
+            }else{
+                res.json("No Users Found")
+            }
+        }
+    } catch (error) {
+        console.error('Error searching users:', error);
+        res.status(500).json({ error });
+    }
+}
+
 module.exports = {
-    signup, signin, getUser, sendloginlink,
+    signup, signin, getUser, sendloginlink, getPostofFollowing, userSearch,
     verifyForgotPasswordLink, resetPassword, followUnfollowUser, logout, updateProfile, deleteProfile, getUserProfile, getAllUsers
 }
 

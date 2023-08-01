@@ -29,7 +29,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to='/' className='text-light text-decoration-none'>
+            <Link to='/search' className='text-light text-decoration-none'>
               <AiOutlineSearch className='menu-icon mt-auto mb-auto' />
               <span className='menu-list'>Search</span>
             </Link>
