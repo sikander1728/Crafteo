@@ -3,7 +3,7 @@ import { createReducer } from "@reduxjs/toolkit";
 const initialState = {
     iserror: "",
     message: "",
-    resetmessage: "",
+    resetmessage: "",  
 }
 
 export const userReducer = createReducer(initialState, {
@@ -118,6 +118,18 @@ export const userReducer = createReducer(initialState, {
         state.iserror += action.payload
         state.isauthenticated = true;
     },
+
+    deleteProfileRequest: (state) => {
+        state.loading = true;
+    },
+    deleteProfileSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    deleteProfileFailure: (state, action) => {
+        state.loading = false;
+        state.iserror += action.payload
+    },
 })
 
 export const allUsersReducer = createReducer(initialState, {
@@ -182,3 +194,4 @@ export const getSingleUser = createReducer(initialState, {
         state.iserror += action.payload
     },
 })
+

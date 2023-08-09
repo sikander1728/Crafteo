@@ -7,12 +7,16 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const Navbar = () => {
-  const {user} = useSelector((state)=> state.user)
+  const { user } = useSelector((state) => state.user)
   return (
     <div className={'desktop-navbar'}>
       <div className="brand_name position-absolute">
-        <img src="/logo.png" alt="crafteo_logo" />
-        <img className='crafteo-responsive' src="/image.png" alt="crafteo_logo" />
+        <a href="/">
+          <img src="/logo.png" alt="crafteo_logo" />
+        </a>
+        <a href="/">
+          <img className='crafteo-responsive' src="/image.png" alt="crafteo_logo" />
+        </a>
       </div>
       <div className='menu position-absolute'>
         <ul className='list-unstyled'>

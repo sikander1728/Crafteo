@@ -1,46 +1,46 @@
 import axios from "axios"
 
 export const createNewPost = (caption, image) => async (dispatch) => {
-   try {
-       dispatch({
-           type: "newPostLoad"
-       })
+    try {
+        dispatch({
+            type: "newPostLoad"
+        })
 
-       const { data } = await axios.post(
-           process.env.REACT_APP_REQUEST_URL + "/api/createpost",
-           {
-               caption,
-               image
-           },
-           {
-               headers: {
-                   "Content-Type": "application/json",
-               },
-           }
-       )
-       console.log(data.message)
-       dispatch({
-           type: "newPostSuccess",
-           payload: data.message
-       })
-   } catch (error) {
-       console.log(error.response.data.message)
-       dispatch({
-           type: "newPostFailure",
-           message: error.response.data.message
-       })
-   }
+        const { data } = await axios.post(
+            process.env.REACT_APP_REQUEST_URL + "/api/createpost",
+            {
+                caption,
+                image
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        console.log(data.message)
+        dispatch({
+            type: "newPostSuccess",
+            payload: data.message
+        })
+    } catch (error) {
+        console.log(error.response.data.message)
+        dispatch({
+            type: "newPostFailure",
+            message: error.response.data.message
+        })
+    }
 }
 
 // get post of following
 export const getPostofFollowing = () => async (dispatch) => {
     try {
-        
+
         dispatch({
             type: "postoffollowingRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/postsoffollowing",{
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/postsoffollowing", {
             withCredentials: true,
         })
 
@@ -60,12 +60,12 @@ export const getPostofFollowing = () => async (dispatch) => {
 
 export const getMyPosts = () => async (dispatch) => {
     try {
-        
+
         dispatch({
             type: "myPostRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/myPosts",{
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + "/api/myPosts", {
             withCredentials: true,
         })
 
@@ -83,15 +83,38 @@ export const getMyPosts = () => async (dispatch) => {
     }
 }
 
+export const getUserPosts = (username) => async (dispatch) => {
+    try {
+
+        dispatch({
+            type: "userPostRequest",
+        })
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/userPosts/${username}`, {
+            withCredentials: true,
+        })
+
+        dispatch({
+            type: "userPostSuccess",
+            payload: data.posts
+        })
+
+    } catch (error) {
+        dispatch({
+            type: "userPostFailure",
+            payload: error.response.data.message
+        })
+    }
+}
+
 // LikeUnlike Reducer
 export const likeandUnlike = (id) => async (dispatch) => {
     try {
-        
+
         dispatch({
             type: "likeUnlikeRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/likeUnlike/${id}`,{
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/likeUnlike/${id}`, {
             withCredentials: true,
         })
 
@@ -108,3 +131,5 @@ export const likeandUnlike = (id) => async (dispatch) => {
         })
     }
 }
+
+

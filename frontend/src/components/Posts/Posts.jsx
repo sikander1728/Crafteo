@@ -70,7 +70,7 @@ const Posts = ({
                      liked ? <BsHeartFill style={{ color: 'red' }} /> : <BsHeart />
                   }
                </span>
-               <FaRegCommentDots className="ms-4" />
+               <FaRegCommentDots className="ms-4"  onClick={handleOpenDialog}/>
             </div>
             <div className="likes-number mt-3">
                <h6 style={{ cursor: 'pointer' }} onClick={handleOpenDialog}>{likeCount} likes</h6>

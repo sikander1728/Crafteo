@@ -1,3 +1,4 @@
+
 import axios from "axios"
 axios.defaults.withCredentials = true
 
@@ -268,6 +269,7 @@ export const logoutUser = () => async (dispatch) => {
     }
 }
 
+
 export const folloUnfollow = (id) => async (dispatch) => {
     try {
 
@@ -275,17 +277,17 @@ export const folloUnfollow = (id) => async (dispatch) => {
             type: "followUserRequest",
         })
 
-        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/followUnfollowUser`, {
+        const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/followUnfollowUser/${id}`, {
             withCredentials: true,
         })
 
+        console.log(data)
         dispatch({
             type: "followUserSuccess",
             payload: data.message
         })
 
     } catch (error) {
-        // console.log(error.response.data.message)
         dispatch({
             type: "followUserFailure",
             payload: error.response.data.message
@@ -325,7 +327,6 @@ export const getSingleProfile = (username) => async (dispatch) => {
         dispatch({
             type: "singleUserRequest",
         })
-        console.log(username)
 
         const { data } = await axios.get(process.env.REACT_APP_REQUEST_URL + `/api/userProfile/${username}`,
             {
@@ -342,6 +343,30 @@ export const getSingleProfile = (username) => async (dispatch) => {
         dispatch({
             type: "singleUserFailure",
             payload: error
+        })
+    }
+}
+
+export const deleteProfile = () => async (dispatch) => {
+    try {
+
+        dispatch({
+            type: "deleteProfileRequest",
+        })
+
+        const { data } = await axios.delete(process.env.REACT_APP_REQUEST_URL + '/api/deleteProfile', {
+            withCredentials: true,
+        })
+
+        dispatch({
+            type: "deleteProfileSuccess",
+            payload: data.message
+        })
+
+    } catch (error) {
+        dispatch({
+            type: "deleteProfileFailure",
+            payload: error.response.data.message
         })
     }
 }
