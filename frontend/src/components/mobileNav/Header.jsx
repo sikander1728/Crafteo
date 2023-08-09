@@ -9,7 +9,9 @@ const Header = () => {
     <div className='mobile-header'>
       <div className="row brand d-flex align-items-center">
         <div className='col ps-3'>
-          <img src="/logo.png" alt="crafteo_logo" />
+          <a href="/">
+            <img src="/logo.png" alt="crafteo_logo" />
+          </a>
         </div>
         <div className="col pe-3">
           <div className="nav-items d-flex justify-content-end">

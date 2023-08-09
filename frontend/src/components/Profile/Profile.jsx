@@ -6,7 +6,7 @@ import Settings from "../../images/settings.png"
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from "../Popup/Popup"
-import { logoutUser } from "../../Actions/User"
+import { deleteProfile, logoutUser } from "../../Actions/User"
 import { ToastContainer } from "react-toastify"
 import { useEffect } from "react"
 import { getMyPosts } from "../../Actions/Post"
@@ -38,6 +38,10 @@ const Profile = () => {
       await dispatch(logoutUser())
       navigate('/');
    }
+   const deleteProfileHandler = async () => {
+      await dispatch(deleteProfile())
+      dispatch(logoutUser())
+   }
    const handlePostOpen = (post) => {
       console.log(post)
       setSelectedPost(post)
@@ -53,6 +57,7 @@ const Profile = () => {
    },
    {
       label: 'Delete My Profile',
+      onClick: deleteProfileHandler
    },
    ]
    return (
@@ -102,7 +107,7 @@ const Profile = () => {
                      <div className="posts-cards">
                         {
                            loading ? (
-                              <div className="react-spinner">
+                              <div className="react-spinner post-loader">
                                  <RotateLoader color='rgb(77, 181, 255)' />
                               </div>
                            ) : (

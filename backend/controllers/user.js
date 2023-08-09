@@ -461,24 +461,24 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-const getPostofFollowing = async (req, res) => {
-    try {
-        const user = await User.findById(req.id);
-        const posts = await Post.find({
-            owner: {
-                $in: user.following,
-            },
-        }).populate('owner likes comments.user')
+// const getPostofFollowing = async (req, res) => {
+//     try {
+//         const user = await User.findById(req.id);
+//         const posts = await Post.find({
+//             owner: {
+//                 $in: user.following,
+//             },
+//         }).populate('owner likes comments.user')
 
-        res.status(201).json({
-            posts: posts.reverse(),
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
+//         res.status(201).json({
+//             posts: posts.reverse(),
+//         })
+//     } catch (error) {
+//         res.status(500).json({
+//             message: error.message
+//         })
+//     }
+// }
 
 const userSearch = async (req, res) => {
     const { query } = req.query;
@@ -508,7 +508,7 @@ const userSearch = async (req, res) => {
 }
 
 module.exports = {
-    signup, signin, getUser, sendloginlink, getPostofFollowing, userSearch,
+    signup, signin, getUser, sendloginlink, userSearch,
     verifyForgotPasswordLink, resetPassword, followUnfollowUser, logout, updateProfile, deleteProfile, getUserProfile, getAllUsers
 }
 

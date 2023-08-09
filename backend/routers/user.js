@@ -1,6 +1,6 @@
 const express = require('express')
 const { signup, signin, getUser,
-   sendloginlink, verifyForgotPasswordLink, getPostofFollowing,
+   sendloginlink, verifyForgotPasswordLink,
    resetPassword, followUnfollowUser, logout, updateProfile, deleteProfile,
    getUserProfile, getAllUsers, userSearch } = require('../controllers/user')
 const { isauthenticated, refreshToken } = require('../middleware/userauth')
@@ -20,7 +20,6 @@ router.put('/updateProfile', isauthenticated, updateProfile)
 router.delete('/deleteProfile', isauthenticated, deleteProfile)
 router.get('/userProfile/:username', isauthenticated, getUserProfile)
 router.get('/allUsers', isauthenticated, getAllUsers)
-router.get('/postsoffollowing', isauthenticated, getPostofFollowing)
 router.get('/searchUser', isauthenticated, userSearch)
 
 module.exports = router
