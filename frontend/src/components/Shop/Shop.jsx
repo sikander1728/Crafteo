@@ -66,16 +66,19 @@ const Shop = () => {
                         showsearch === true ? (
                             <div className='grid-container mt-5'>
                                 {
-                                    products?.map((item, index) => (
-                                        <>
-                                            <div className='grid-item' key={index}>
-                                                <img src={item.images[0].url} alt="" />
-                                                <h3 className='pt-3'>{item.title}</h3>
-                                                <p className='pt-3'>{item.description}</p>
-                                                <h4 className='pt-4'>{item.price} PKR /-</h4>
-                                            </div>
-                                        </>
-                                    ))
+                                    !products ? null : typeof products === 'string' ? (
+                                        <h4>No products found</h4>
+                                    ) :
+                                        products?.map((item, index) => (
+                                            <>
+                                                <div className='grid-item' key={index}>
+                                                    <img src={item.images[0].url} alt="" />
+                                                    <h3 className='pt-3'>{item.title}</h3>
+                                                    <p className='pt-3'>{item.description}</p>
+                                                    <h4 className='pt-4'>{item.price} PKR /-</h4>
+                                                </div>
+                                            </>
+                                        ))
                                 }
                             </div>
                         ) : (
