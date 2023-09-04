@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { postReducer , postoffollowingReducer, likeUnlikeReducer, myPostsReducer, userPostsReducer} from "./features/post/postReducer"
-import {allUsersReducer, getSingleUser, searchUserReducer, userReducer} from "./features/user/userReducer"
+import { postReducer, postoffollowingReducer, likeUnlikeReducer, myPostsReducer, userPostsReducer } from "./features/post/postReducer"
+import { allUsersReducer, getSingleUser, searchUserReducer, userReducer } from "./features/user/userReducer"
+import { getAllProducts, searchProductReducer } from "./features/product/productreducer"
 
 export const store = configureStore({
     reducer: {
@@ -13,5 +14,7 @@ export const store = configureStore({
         userSearch: searchUserReducer,
         singleUser: getSingleUser,
         userPosts: userPostsReducer,
+        allProducts: getAllProducts,
+        productSearch: searchProductReducer,
     },
 })

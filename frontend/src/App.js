@@ -21,6 +21,7 @@ import Header from "./components/mobileNav/Header";
 import BottomNav from "./components/mobileNav/BottomNav";
 import SearchUser from "./components/SearchUser/SearchUser";
 import RotateLoader from "react-spinners/RotateLoader";
+import Shop from "./components/Shop/Shop";
 
 function App() {
   const { isauthenticated, user, loading } = useSelector((state) => state.user)
@@ -29,7 +30,7 @@ function App() {
   useEffect(() => {
     dispatch(LoadUser())
   }, [dispatch])
-  return loading ? <div className="react-spinner" style={{height: '100vh'}}>
+  return loading ? <div className="react-spinner" style={{ height: '100vh' }}>
     <RotateLoader color='rgb(77, 181, 255)' />
   </div> : (
     <Router>
@@ -40,6 +41,7 @@ function App() {
         </>
       }
       <Routes>
+        {/* <Route exact path="/" element={isauthenticated && user.role === "seller" ? <Admin/>  : <SignIn/>}/> */}
         <Route exact path="/" element={isauthenticated ? <Home /> : <SignIn />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/accounts/password/reset" element={<ForgotPassword />} />
@@ -49,6 +51,7 @@ function App() {
         <Route exact path="/accounts/edit" element={isauthenticated ? <EditProfile /> : <SignIn />} />
         <Route exact path='/:username' element={isauthenticated ? <SingleUserProfile /> : <SignIn />} />
         <Route exact path="/search" element={isauthenticated ? <SearchUser /> : <SignIn />} />
+        <Route exact path="/shop" element={isauthenticated ? <Shop /> : <SignIn />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {isauthenticated && <BottomNav />}

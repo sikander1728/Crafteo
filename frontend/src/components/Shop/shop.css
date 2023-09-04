@@ -1,0 +1,40 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Three columns by default */
+    gap: 50px;
+    /* Adjust the gap as needed */
+}
+.grid-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        /* Two columns on smaller screens */
+    }
+    .content-section .select select{
+        width: 50% !important;
+    }
+}
+/* Media query for even smaller screens */
+@media screen and (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        /* One column on even smaller screens */
+    }
+    .content-section .select select{
+        display: none !important;
+    }
+    .content-section .select select{
+        width: 100% !important;
+    }
+    .content-section form{
+        width: 100% !important;
+        margin-top: 20px;
+    }
+}

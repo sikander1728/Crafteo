@@ -20,6 +20,10 @@ const userSchema = new Schema({
         trim: true,
         minlength: [3, "Name must contain at least 3 characters"],
     },
+    role: {
+        type: String,
+        default: 'buyer',
+    },
     username: {
         type: String,
         required: [true, "Please enter username"],
@@ -59,7 +63,7 @@ const userSchema = new Schema({
     ],
     verifytoken: {
         type: String
-    } 
+    }
 })
 
 module.exports = mongoose.model('User', userSchema)
