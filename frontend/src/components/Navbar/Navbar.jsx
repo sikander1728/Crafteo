@@ -39,7 +39,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to='/' className='text-light text-decoration-none'>
+            <Link to='/shop' className='text-light text-decoration-none'>
               <HiShoppingCart className='menu-icon mt-auto mb-auto' />
               <span className='menu-list'>Shop</span>
             </Link>

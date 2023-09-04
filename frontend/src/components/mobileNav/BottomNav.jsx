@@ -25,7 +25,7 @@ const BottomNav = () => {
             </Link>
           </li>
           <li>
-            <Link to='/' className='text-light text-decoration-none'>
+            <Link to='/shop' className='text-light text-decoration-none'>
               <HiShoppingCart  className='bottom-nav-icon'/>
             </Link>
           </li>

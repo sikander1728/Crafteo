@@ -31,6 +31,7 @@ const Posts = ({
    const likehandler = () => {
       if (liked) {
          setLikeCount((prevCount) => prevCount - 1);
+
       } else {
          setLikeCount((prevCount) => prevCount + 1);
       }

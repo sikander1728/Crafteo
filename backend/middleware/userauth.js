@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-
+const User = require('../models/User')
 const isauthenticated = async (req, res, next) => {
     try {
         const token = req.cookies.token;
@@ -25,6 +25,41 @@ const isauthenticated = async (req, res, next) => {
         })
     }
 }
+
+const sellerAuthMiddleware = (role) => {
+    return async (req, res, next) => {
+        try {
+            const token = req.cookies.token;
+
+            if (!token) {
+                return res.status(401).json({ message: "Please Login First" });
+            }
+
+            jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, user) => {
+                if (err) {
+                    return res.status(400).json({ message: "Invalid Token" });
+                }
+
+                const existingUser = await User.findById(user.id);
+
+                if (!existingUser) {
+                    return res.status(404).json({ message: "User Not Found" });
+                }
+
+                if (existingUser.role !== role) {
+                    return res.status(403).json({ message: "Access Denied. User is not authorized for this action" });
+                }
+
+                req.id = user.id;
+                next();
+            });
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message
+            });
+        }
+    };
+};
 
 //refresh token
 const refreshToken = async (req, res, next) => {
@@ -63,4 +98,4 @@ const refreshToken = async (req, res, next) => {
 }
 
 
-module.exports = { isauthenticated, refreshToken }
+module.exports = { isauthenticated, sellerAuthMiddleware, refreshToken }

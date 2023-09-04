@@ -109,7 +109,7 @@ const signin = async (req, res, next) => {
 
     // passing token
     const token = jwt.sign(
-        { id: existingUser._id },
+        { id: existingUser._id, role: existingUser.role },
         process.env.JWT_SECRET_KEY,
         { expiresIn: "1d" }
     )
@@ -424,8 +424,8 @@ const deleteProfile = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
     try {
-        const {username} = req.params;
-        const user = await User.findOne({username}).populate('followers following posts');
+        const { username } = req.params;
+        const user = await User.findOne({ username }).populate('followers following posts');
         if (!user) {
             return res.status(404).json({
                 message: "User Not Fond!"
@@ -483,7 +483,7 @@ const getAllUsers = async (req, res) => {
 const userSearch = async (req, res) => {
     const { query } = req.query;
     try {
-        if (!query || query.trim() === '' ) {
+        if (!query || query.trim() === '') {
             res.json({
                 message: "No Query Found !"
             });
@@ -495,9 +495,9 @@ const userSearch = async (req, res) => {
                 ],
             });
 
-            if(users.length > 0){
+            if (users.length > 0) {
                 res.json(users);
-            }else{
+            } else {
                 res.json("No Users Found")
             }
         }
