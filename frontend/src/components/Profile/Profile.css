@@ -1,0 +1,139 @@
+.content-section {
+   font-family: 'Montserrat';
+}
+
+.user-info {
+   padding-block-end: 30px;
+   border-block-end: 1px solid darkgray;
+}
+
+.user-profile-avatar {
+   inline-size: 120px;
+   block-size: 120px;
+   border-radius: 50%;
+   border: 1px solid darkgrey;
+}
+
+.avatar-background {
+   inline-size: 120px;
+   block-size: 120px;
+   background-position: center;
+   background-size: cover;
+   background-repeat: no-repeat;
+   border-radius: 50%;
+}
+
+.settings-icon {
+   block-size: 25px;
+   cursor: pointer;
+}
+
+.avatar-section {
+   inline-size: 25%;
+}
+
+.user-detail-sections {
+   inline-size: 75%;
+}
+
+.user-detail-section h3 {
+   font-weight: 600;
+}
+
+.title-edit-profile-row .edit-profile-button {
+   block-size: 35px;
+   background-color: #1f1f38;
+   border: none;
+   border-radius: 5px;
+   padding: 4px 15px;
+   color: white;
+}
+
+.post-foolower-following-section {
+   justify-content: space-between;
+}
+
+.mobile-post-following-section {
+   display: none;
+}
+
+.post-foolower-following-section h5 {
+   text-align: center;
+   font-size: 16px;
+   font-weight: 600;
+}
+
+.posts-cards {
+   padding-block-start: 15px;
+   align-items: stretch;
+   box-sizing: border-box;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: flex-start;
+}
+
+@media only screen and (max-width : 740px) {
+   .avatar-background {
+      inline-size: 100px;
+      block-size: 100px;
+   }
+}
+
+@media only screen and (max-width : 620px) {
+   .user-detail-section .post-foolower-following-section {
+      display: none !important;
+   }
+
+   .mobile-post-following-section {
+      display: block;
+      border-block-end: 1px solid darkgray;
+   }
+
+   .user-detail-section .title-edit-profile-row {
+      display: block !important;
+   }
+
+   .user-detail-section .title-edit-profile-row h3 {
+      margin-inline-start: 20px;
+   }
+
+   .content-section {
+      padding: 20px 20px;
+   }
+
+   .user-info {
+      padding-block-end: 15px;
+   }
+}
+
+@media only screen and (max-width : 440px) {
+   .avatar-background {
+      inline-size: 70px;
+      block-size: 70px;
+   }
+
+   .user-detail-section .title-edit-profile-row h3 {
+      font-size: 16px;
+   }
+
+   .title-edit-profile-row button {
+      font-size: 13px;
+      padding: 3px 10px;
+   }
+}
+
+@media only screen and (max-width : 330px) {
+   .post-foolower-following-section h5 {
+      font-size: 14px;
+   }
+
+   .avatar-background {
+      inline-size: 65px;
+      block-size: 65px;
+   }
+
+   .avatar-section {
+      display: flex;
+      align-items: center;
+   }
+}

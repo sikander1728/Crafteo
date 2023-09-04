@@ -1,0 +1,35 @@
+.row{
+   --bs-gutter-x: 0rem;
+}
+.mobile-header{
+   background-color: #1f1f38;
+   position: sticky;
+   inset-block-start: 0;
+   display: none;
+   z-index: 1;
+}
+.brand{
+   block-size: 60px;
+}
+.brand img{
+   inline-size: 130px;
+}
+.nav-icons{
+   font-size: 30px;
+}
+@media only screen and (max-width : 700px){
+   .mobile-header{
+      display: block !important;
+   }
+}
+@media only screen and (max-width : 425px) {
+   .brand{
+      block-size: 50px;
+   }
+   .brand img{
+      inline-size: 110px;
+   }
+   .nav-icons{
+      font-size: 25px;
+   }
+}

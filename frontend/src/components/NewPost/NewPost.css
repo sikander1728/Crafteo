@@ -1,0 +1,120 @@
+.create-new-post-section {
+   padding-block-start: 10px;
+   font-family: 'Montserrat';
+}
+
+.create-new-post-section h2 {
+   font-weight: 700;
+   inline-size: fit-content;
+   border-block-end: 1px solid darkgray;
+}
+
+.post-display-image {
+   inline-size: 300px;
+}
+
+.custom-file-input {
+   color: transparent;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+   visibility: hidden;
+}
+
+.file-chosen {
+   inline-size: 160px;
+   margin: auto;
+}
+
+.custom-file-input::before {
+   content: 'Select Your File';
+   color: black;
+   display: inline-block;
+   border: 1px solid #999;
+   border-radius: 50px;
+   padding: 10px 25px;
+   outline: none;
+   white-space: nowrap;
+   cursor: pointer;
+   font-weight: 700;
+   font-size: 10pt;
+}
+
+.create-new-post-section form .post-caption input {
+   border: none;
+   outline: none;
+}
+
+.create-new-post-section form button {
+   border: 1px solid;
+   border-radius: 50px;
+   background-color: #1f1f38;
+   color: white;
+   padding: 5px 40px;
+}
+
+.initial-post-section {
+   block-size: 100%;
+}
+
+.initial-post-section form .upload-image img {
+   inline-size: 350px;
+}
+
+.image-selector-section {
+   inline-size: 50%;
+}
+
+.post-content-section {
+   inline-size: 50%;
+   padding: 20px 30px;
+   background-color: #F5F5F5;
+   border-radius: 5px;
+   block-size: auto;
+}
+.post-content-section .post-caption{
+   min-block-size: 85%;
+}
+.post-content-section .post-caption textarea {
+   inline-size: 100%;
+   border: none;
+   outline: none;
+   background-color: transparent;
+}
+
+@media only screen and (max-width : 789px) {
+   .post-secondary-section {
+      display: block !important;
+   }
+
+   .image-selector-section {
+      inline-size: 100%;
+   }
+
+   .post-content-section {
+      inline-size: 100%;
+      margin-block-start: 20px;
+   }
+}
+@media only screen and (max-width : 375px){
+   .post-display-image{
+      inline-size: 250px;
+   }
+}
+@media only screen and (max-width : 435px) {
+   .initial-post-section form .upload-image img {
+      inline-size: 250px;
+   }
+}
+
+/* @media only screen and (max-width : 615px){
+   .post-secondary-section{
+      display: block !important;
+   }
+   .image-selector-section{
+      inline-size: 100%;
+   }
+   .post-content-section{
+      inline-size: 100%;
+   }
+} */

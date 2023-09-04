@@ -1,0 +1,53 @@
+.post-section{
+   padding: 20px 80px 20px 50px;
+   font-family: 'Montserrat';
+}
+.post-header a .avatar{
+   inline-size: 45px;
+   block-size: 45px;
+   margin-inline-start: 0px;
+}
+.post-header a{
+   text-decoration: none;
+   color: black;
+}
+.post-header a h5{
+   font-weight: bold;
+}
+.more svg{
+   font-size: 24px;
+   cursor: pointer;
+} 
+.post-section .post-image img{
+   inline-size: 100%;
+   border-radius: 5px;
+}
+.like-comments-icons svg{
+   font-size: 24px;
+   cursor: pointer;
+}
+.post-caption p{
+   font-weight: bold;
+   padding-block-end: 20px;
+   border-block-end: 1px solid gray;
+}
+@media only screen and (max-width : 915px){
+   .post-section{
+      padding: 20px;
+   }
+}
+@media only screen and (max-width : 440px){
+   .post-caption p{
+      font-size: 12px;
+   }
+   .post-header a .avatar{
+      inline-size: 35px;
+      block-size: 35px;
+   }
+   .post-header h5{
+      font-size: 16px;
+   }
+   .post-section{
+      padding: 20px 0px;
+   }
+}

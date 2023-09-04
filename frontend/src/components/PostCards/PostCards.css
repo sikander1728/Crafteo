@@ -1,0 +1,68 @@
+.card {
+   flex: 0 0 calc(33.33% - 4px);
+   margin-inline-end: 5px;
+   margin-block-end: 5px;
+   border-radius: 0px;
+   display: block;
+   inline-size: 100%;
+   block-size: 300px;
+   background-size: cover;
+   background-position: center;
+   position: relative;
+}
+
+.card:hover .card-overlay {
+   cursor: pointer;
+   background-color: rgba(0, 0, 0, 0.5);
+   opacity: 1;
+}
+
+.card .card-overlay {
+   position: absolute;
+   inset-block-start: 0;
+   inset-inline-start: 0;
+   inline-size: 100%;
+   block-size: 100%;
+   opacity: 0;
+   transition: opacity 0.3s;
+}
+
+.card:nth-child(3n) {
+   margin-inline-end: auto;
+}
+
+.card:nth-last-child(-n+3) {
+   flex-basis: calc(33.33% - 4px);
+}
+
+@media only screen and (max-width : 1195px) {
+   .card {
+      block-size: 200px;
+   }
+}
+@media only screen and (max-width : 620px) {
+   .card {
+      block-size: 150px;
+   }
+}
+@media only screen and (max-width : 440px) {
+   .card {
+      flex: 0 0 calc(33.33% - 2px);
+      margin-inline-end: 2px;
+      margin-block-end: 2px;
+      block-size: 120px;
+   }
+
+   .card:nth-child(3n) {
+      margin-inline-end: 0px;
+   }
+
+   .card:nth-last-child(-n+3) {
+      flex-basis: calc(33.33% - 2px);
+   }
+}
+@media only screen and (max-width : 330px) {
+   .card {
+      block-size: 100px;
+   }
+}

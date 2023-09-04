@@ -1,0 +1,61 @@
+.content-section{
+   margin-inline-start: 19%;
+   block-size: 100vh;
+   inline-size: 100%;
+   padding: 30px 40px;
+   overflow: auto;
+}
+.posts-section{
+   inline-size: 70%;
+}
+.suggested-users-section{
+   inline-size: 30%;
+   padding-block-start: 30px;
+}
+@media only screen and (max-width : 1040px) {
+   .content-section{
+      margin-inline-start: 70px;
+   }
+}
+@media only screen and (max-width : 700px){
+   .main{
+      display: block !important;
+   }
+   .content-section{
+      margin-inline-start: 0px;
+   }
+}
+@media only screen and (max-width : 370px){
+   .content-section{
+      padding: 30px 30px;
+   }
+}
+.no-post-section{
+   display: grid;
+   place-items: center;
+   block-size: 100vh;
+}
+.no-post-section img{
+   inline-size: 100px;
+}
+.react-spinner{
+   inline-size: 100%;
+   display: grid;
+   place-items: center;
+}
+@media only screen and (max-width : 915px){
+   .posts-section{
+      inline-size: 60%;
+   }
+   .suggested-users-section{
+      inline-size: 40%;
+   }
+}
+@media only screen and (max-width : 580px){
+   .posts-section{
+      inline-size: 100%;
+   }
+   .suggested-users-section{
+      display: none;
+   }
+}
